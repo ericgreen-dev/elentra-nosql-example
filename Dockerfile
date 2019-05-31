@@ -14,6 +14,9 @@ RUN apt update && apt install -y \
     libmcrypt-dev \
     libreadline-dev \
     libfreetype6-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    pkg-config \
     g++
 
 # Install PHP extensions

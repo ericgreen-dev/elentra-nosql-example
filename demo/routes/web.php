@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Document;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,7 @@
 */
 
 Route::get('/', function () {
+
+    dd(Document::all());
     return view('welcome');
 });
