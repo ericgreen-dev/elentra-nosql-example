@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Rebing\GraphQL\GraphQLServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
 
         /*
