@@ -15,8 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('maria')->middleware('auth.basic')->group(function (Router $router) {
-    $router->get('user-data', 'UserDataController@index');
-    $router->get('user-data/{key}', 'UserDataController@show');
-    $router->put('user-data/{key}', 'UserDataController@save');
-    $router->delete('user-data/{key}', 'UserDataController@destroy');
+
+    /**
+     * Users
+     */
+    $router->get('users', 'UserController@index');
+
+    /**
+     * User Data
+     */
+    $router->get('user-data', 'DataController@index');
+
+    $router->get('user-data/{key}', 'DataController@show');
+    $router->put('user-data/{key}', 'DataController@save');
+    $router->delete('user-data/{key}', 'DataController@destroy');
+
 });

@@ -2,14 +2,14 @@
 
 namespace App\Modules\MariaDB\Http\Controllers;
 
-use App\Modules\MariaDB\Models\UserData;
 use App\Http\Controllers\Controller;
+use App\Modules\MariaDB\Models\User\Data;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 
-class UserDataController extends Controller {
+class DataController extends Controller {
 
     /**
      * Get all of a user's data. This will fetch the values for all keys in the current User's data.
@@ -20,7 +20,7 @@ class UserDataController extends Controller {
      * @return Response
      */
     public function index(Request $request) : Response {
-        return response(UserData::user($request->user())
+        return response(Data::user($request->user())
             ->pluck('data')
             ->first() ?? []);
     }
@@ -41,7 +41,7 @@ class UserDataController extends Controller {
      * @return Response
      */
     public function show(Request $request, $key) : Response {
-        $data = UserData::user($request->user())->first();
+        $data = Data::user($request->user())->first();
 
         if (!$data || !Arr::has($data->data, $key)) {
             return response(null, 404);
@@ -60,11 +60,11 @@ class UserDataController extends Controller {
      * @return Response
      */
     public function save(Request $request, $key) : Response {
-        $data = UserData::firstOrCreate([
+        $data = Data::firstOrCreate([
             'user_id' => $request->user()->id
         ], ['data' => []]);
 
-        $data->forceFill([UserData::path($key) => json_decode($request->getContent())]);
+        $data->forceFill([Data::path($key) => json_decode($request->getContent())]);
 
         if (!$data->save()) {
             abort(500, __('Error writing key'));
@@ -81,7 +81,7 @@ class UserDataController extends Controller {
      * @return Response
      */
     public function destroy(Request $request, $key) : Response {
-        $data = UserData::user($request->user())->first();
+        $data = Data::user($request->user())->first();
 
         if (!$data || !Arr::has($data->data, $key)) {
             return response(null, 404);

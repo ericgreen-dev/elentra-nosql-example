@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\MariaDB\Models;
+namespace App\Modules\MariaDB\Models\User;
 
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 
-class UserData extends Model {
+class Data extends Model {
 
     /**
      * @var string The table name
@@ -55,7 +55,9 @@ class UserData extends Model {
     }
 
     /**
-     * Build a JSON attribute path
+     * Resolve dot notation paths to object paths
+     *
+     * Eg. data.contact.phone => data->contact->phone
      *
      * @param $path
      * @param string $separator
