@@ -45,6 +45,7 @@ services:
       - 3306:3306
     restart: always
     environment:
+      MYSQL_DATABASE: example
       MYSQL_ROOT_PASSWORD: password
     
   phpmyadmin:
