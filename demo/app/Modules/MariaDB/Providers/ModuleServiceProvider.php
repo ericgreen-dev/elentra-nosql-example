@@ -4,15 +4,16 @@ namespace App\Modules\MariaDB\Providers;
 
 use Caffeinated\Modules\Support\ServiceProvider;
 
-class ModuleServiceProvider extends ServiceProvider
-{
+
+class ModuleServiceProvider extends ServiceProvider {
+
     /**
      * Bootstrap the module services.
      *
+     * @throws
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->loadTranslationsFrom(module_path('mariadb', 'Resources/Lang', 'app'), 'mariadb');
         $this->loadViewsFrom(module_path('mariadb', 'Resources/Views', 'app'), 'mariadb');
         $this->loadMigrationsFrom(module_path('mariadb', 'Database/Migrations', 'app'), 'mariadb');
@@ -25,8 +26,9 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(GraphQLServiceProvider::class);
     }
+
 }

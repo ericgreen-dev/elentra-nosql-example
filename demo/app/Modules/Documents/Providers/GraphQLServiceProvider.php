@@ -27,8 +27,8 @@ class GraphQLServiceProvider extends ServiceProvider {
      * @return void
      */
     protected function registerTypes() {
-        GraphQL::addType(DocumentType::class, 'document');
-        GraphQL::addType(DocumentType::class, 'document');
+//        GraphQL::addType(DocumentType::class, 'document');
+//        GraphQL::addType(DocumentType::class, 'document');
     }
 
     /**
@@ -37,14 +37,14 @@ class GraphQLServiceProvider extends ServiceProvider {
      * @return void
      */
     protected function registerSchema() {
-        GraphQL::mergeSchemas('default', [
-            'query' => [
-                'documents' => DocumentsQuery::class
-            ],
-            'mutation' => [
-                'updateDocumentTitle' => DocumentTitleMutation::class
-            ]
-        ]);
+//        GraphQL::mergeSchemas('default', [
+//            'query' => [
+//                'documents' => DocumentsQuery::class
+//            ],
+//            'mutation' => [
+////                'updateDocumentTitle' => DocumentTitleMutation::class
+//            ]
+//        ]);
     }
 
     /**
