@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Providers;
+namespace App\Modules\Documents\Providers;
 
-use App\GraphQL\Mutations\DocumentTitleMutation;
-use App\GraphQL\Queries\DocumentsQuery;
+use App\Modules\Documents\GraphQL\Mutations\DocumentTitleMutation;
+use App\Modules\Documents\GraphQL\Queries\DocumentsQuery;
+use App\Modules\Documents\GraphQL\Types\DocumentType;
 use Illuminate\Support\ServiceProvider;
 use Rebing\GraphQL\Support\Facades\GraphQL;
-use App\GraphQL\Types\DocumentType;
 
 
 class GraphQLServiceProvider extends ServiceProvider {

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\GraphQL\Types;
+namespace App\Modules\Documents\GraphQL\Types;
 
-use App\Models\Document;
+use App\Modules\Documents\Models\Document;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
+
 
 class DocumentType extends GraphQLType {
 

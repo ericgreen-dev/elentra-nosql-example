@@ -1,8 +1,8 @@
 <?php
 
-namespace App\GraphQL\Mutations;
+namespace App\Modules\Documents\GraphQL\Mutations;
 
-use App\Models\Document;
+use App\Modules\Documents\Models\Document;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;

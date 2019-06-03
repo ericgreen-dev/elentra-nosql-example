@@ -1,8 +1,8 @@
 <?php
 
-namespace App\GraphQL\Queries;
+namespace App\Modules\Documents\GraphQL\Queries;
 
-use App\Models\Document;
+use App\Modules\Documents\Models\Document;
 use GraphQL\Type\Definition\ListOfType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type;
