@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/mariadb', function (Request $request) {
-    // return $request->mariadb();
-})->middleware('auth:api');
+Route::prefix('maria')->middleware('auth.basic')->group(function (Router $router) {
+    $router->get('user-data', 'UserDataController@index');
+    $router->get('user-data/{key}', 'UserDataController@show');
+    $router->put('user-data/{key}', 'UserDataController@save');
+    $router->delete('user-data/{key}', 'UserDataController@destroy');
+});
