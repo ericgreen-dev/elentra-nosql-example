@@ -47,10 +47,11 @@ class UserData extends Model {
      * Delete a JSON path from the data object
      *
      * @param string $path
-     * @return void
+     *
+     * @return bool
      */
-    public function deleteKey($path) : void {
-        DB::table($this->table)->update(['data' => DB::raw('JSON_REMOVE(data, "$.' . $path . '")')]);
+    public function deleteKey($path) : bool {
+        return DB::table($this->table)->update(['data' => DB::raw('JSON_REMOVE(data, "$.' . $path . '")')]) > 0;
     }
 
     /**

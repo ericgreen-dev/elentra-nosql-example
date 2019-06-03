@@ -67,7 +67,7 @@ class UserDataController extends Controller {
         $data->forceFill([UserData::path($key) => json_decode($request->getContent())]);
 
         if (!$data->save()) {
-            abort(500, __('Error writing user data'));
+            abort(500, __('Error writing key'));
         }
         return response(Arr::get($data->data, $key));
     }
@@ -86,10 +86,11 @@ class UserDataController extends Controller {
         if (!$data || !Arr::has($data->data, $key)) {
             return response(null, 404);
         }
-
         $value = Arr::get($data->data, $key);
-        $data->deleteKey($key);
 
+        if (!$data->deleteKey($key)) {
+            abort(500, __('Error deleting key'));
+        }
         return response($value);
     }
 
