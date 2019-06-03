@@ -1,0 +1,6 @@
+{
+    "name": "MongoDB",
+    "slug": "mongodb",
+    "version": "1.0",
+    "description": "This is the description for the Mongodb module."
+}
