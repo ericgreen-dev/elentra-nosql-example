@@ -3,11 +3,10 @@
 
 namespace App\Modules\MariaDB\GraphQL\Queries;
 
-use App\Modules\MariaDB\Models\User\Data;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
-use Illuminate\Http\Request;
+use Rebing\GraphQL\Support\SelectFields;
 
 
 class DataQuery extends Query {
@@ -35,6 +34,14 @@ class DataQuery extends Query {
      */
     public function args() {
         return [
+            'id' => [
+                'name' => 'id',
+                'type' => Type::int()
+            ],
+            'email' => [
+                'name' => 'email',
+                'type' => Type::string()
+            ]
         ];
     }
 
@@ -46,8 +53,17 @@ class DataQuery extends Query {
      *
      * @return mixed
      */
-    public function resolve($root, $args) {
-        return Data::user($args['id'])->get();
+    public function resolve($root, $args, SelectFields $fields) {
+    dd($fields->getSelect(), $fields->getRelations());
+//        return Data::user($args['id'])->get();
+
+
+//        $select = $fields->getSelect();
+//        $with = $fields->getRelations();
+//
+//        $users = User::select($select)->with($with);
+//
+//        return $users->get();
     }
 
 }

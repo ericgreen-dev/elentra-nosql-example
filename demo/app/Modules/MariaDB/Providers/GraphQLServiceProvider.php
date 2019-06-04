@@ -37,7 +37,7 @@ class GraphQLServiceProvider extends ServiceProvider {
      * @return void
      */
     protected function bootSchemas() : void {
-        GraphQL::addSchema('user', [
+        GraphQL::addSchema('maria', [
             'query' => [
                 'data' => DataQuery::class
             ],

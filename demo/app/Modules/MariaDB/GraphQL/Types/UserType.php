@@ -3,7 +3,6 @@
 namespace App\Modules\MariaDB\GraphQL\Types;
 
 use App\User;
-use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
@@ -38,11 +37,6 @@ class UserType extends GraphQLType {
             'email' => [
                 'type' => Type::string(),
                 'description' => 'The user\'s email address'
-            ],
-            'data' => [
-                'type' => GraphQL::type('data'),
-                'description' => 'Metadata about the user',
-                'is_relation' => false
             ]
         ];
     }

@@ -17,7 +17,7 @@ class DataType extends GraphQLType {
     protected $attributes = [
         'model'       => Data::class,
         'name'        => 'Data',
-        'description' => 'A document representing a user\'s data'
+        'description' => 'A System user\'s data'
     ];
 
     /**
@@ -31,19 +31,19 @@ class DataType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The ID of the document'
             ],
-            'user' => [
+            'owner' => [
                 'type' => GraphQL::type('user'),
                 'description' => 'The user that the document belongs to',
             ],
             'data' => [
+                'description' => 'The user data document',
+                'is_relation' => false,
                 'type' => new ObjectType([
                     'name' => 'data',
-                    'description' => 'JSON data',
                     'fields' => [
                         'example_field' => ['type' => Type::string()]
                     ]
-                ]),
-                'description' => 'JSON data',
+                ])
             ]
         ];
     }

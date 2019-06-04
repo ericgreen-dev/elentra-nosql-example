@@ -5,6 +5,7 @@ namespace App\Modules\MariaDB\Models\User;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,6 +31,15 @@ class Data extends Model {
         'data'    => 'array',
         'user_id' => 'integer'
     ];
+
+    /**
+     * Get the metadata owner
+     *
+     * @return BelongsTo
+     */
+    public function owner() : BelongsTo {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     /**
      * Scope data by a particular user
