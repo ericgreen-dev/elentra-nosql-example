@@ -13,8 +13,6 @@ class UsersTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-
-        // Create the admin user
         User::create([
             'id' => 1,
             'name' => __('System Administrator'),
@@ -22,10 +20,7 @@ class UsersTableSeeder extends Seeder {
             'remember_token' => Str::random(10),
             'email' => 'admin@example.com',
             'email_verified_at' => now(),
-        ]);
-
-        // Generate 10 random users
-        factory(User::class, 10)->create();
+        ]); // Create the admin user
     }
 
 }

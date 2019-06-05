@@ -30,13 +30,13 @@ class ContactType extends GraphQLType {
                 'type' => Type::string()
             ],
             'primary_phone' => [
-                'type' => Type::int()
+                'type' => Type::string()
             ],
             'secondary_phone' => [
-                'type' => Type::int()
+                'type' => Type::string()
             ],
             'pager_number' => [
-                'type' => Type::int()
+                'type' => Type::string()
             ]
         ];
     }
