@@ -3,7 +3,6 @@
 namespace App\Modules\MariaDB\GraphQL\Queries;
 
 use App\Modules\MariaDB\Models\Data;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;

@@ -20,7 +20,7 @@ class FacadeServiceProvider extends ServiceProvider {
      * @return array
      */
     public function provides() : array {
-        return [User::class];
+        return ['maria.auth.user'];
     }
 
     /**
@@ -34,8 +34,8 @@ class FacadeServiceProvider extends ServiceProvider {
          *
          * Provide the current user
          */
-        $this->app->bind(User::class, static function () {
-            return User::find(Auth::user()->id);
+        $this->app->bind('maria.auth.user', static function () {
+            return Auth::check() ? User::find(Auth::id()) : null;
         });
     }
 

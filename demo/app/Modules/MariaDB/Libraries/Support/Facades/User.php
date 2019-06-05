@@ -20,7 +20,7 @@ class User extends Facade {
      * @return string
      */
     protected static function getFacadeAccessor() : string {
-        return \App\Modules\MariaDB\Models\User::class;
+        return 'maria.auth.user';
     }
 
     /**
