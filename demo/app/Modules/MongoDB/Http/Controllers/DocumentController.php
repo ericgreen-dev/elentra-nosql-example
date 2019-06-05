@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Documents\Http\Controllers;
+namespace App\Modules\MongoDB\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Documents\Models\Document;
+use App\Modules\MongoDB\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 

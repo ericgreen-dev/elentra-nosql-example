@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Documents\GraphQL\Queries;
+namespace App\Modules\MongoDB\GraphQL\Queries;
 
-use App\Modules\Documents\Models\Document;
+use App\Modules\MongoDB\Models\Document;
 use GraphQL\Type\Definition\ListOfType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type;

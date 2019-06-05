@@ -2,6 +2,7 @@
 
 namespace App\Modules\MariaDB\Providers;
 
+use App\Modules\MariaDB\GraphQL\Mutations\UpdateContactMutation;
 use App\Modules\MariaDB\GraphQL\Queries\DataQuery;
 use App\Modules\MariaDB\GraphQL\Types\AddressType;
 use App\Modules\MariaDB\GraphQL\Types\ContactType;
@@ -46,6 +47,7 @@ class GraphQLServiceProvider extends ServiceProvider {
                 'user_data' => DataQuery::class
             ],
             'mutation' => [
+//                'update_contact' => UpdateContactMutation::class
             ],
             'middleware' => [
                 'auth.basic'

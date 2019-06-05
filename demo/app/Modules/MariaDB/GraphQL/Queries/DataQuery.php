@@ -24,7 +24,7 @@ class DataQuery extends Query {
      *
      * @return Type
      */
-    public function type() {
+    public function type() : Type {
         return GraphQL::type('data');
     }
 
@@ -33,7 +33,7 @@ class DataQuery extends Query {
      *
      * @return array
      */
-    public function args() {
+    public function args() : array {
         return [
             'user' => [
                 'name' => 'user',
@@ -52,7 +52,7 @@ class DataQuery extends Query {
      *
      * @return mixed
      */
-    public function resolve($root, $args, SelectFields $fields, ResolveInfo $info) {  //dd($info);
+    public function resolve($root, $args, SelectFields $fields) {
         return Data::query()
             ->where('user_id', $args['user'])
             ->select($fields->getSelect())

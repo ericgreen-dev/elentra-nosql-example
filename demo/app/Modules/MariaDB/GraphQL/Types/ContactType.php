@@ -21,7 +21,7 @@ class ContactType extends GraphQLType {
      *
      * @return array
      */
-    public function fields() {
+    public function fields() : array {
         return [
             'primary_email' => [
                 'type' => Type::string()

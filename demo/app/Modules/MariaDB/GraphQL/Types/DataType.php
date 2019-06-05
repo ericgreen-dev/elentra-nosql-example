@@ -24,7 +24,7 @@ class DataType extends GraphQLType {
      *
      * @return array
      */
-    public function fields() {
+    public function fields() : array {
         return [
             'user' => [
                 'type' => GraphQL::type('user'),

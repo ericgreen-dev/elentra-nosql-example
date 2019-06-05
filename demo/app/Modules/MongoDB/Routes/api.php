@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/mongodb', function (Request $request) {
-    // return $request->mongodb();
-})->middleware('auth:api');
+Route::prefix('mongo')->middleware('auth.basic')->group(function (Router $router) {
+
+    /**
+     * Documents API resource
+     */
+    $router->apiResource('documents', 'DocumentController');
+
+});

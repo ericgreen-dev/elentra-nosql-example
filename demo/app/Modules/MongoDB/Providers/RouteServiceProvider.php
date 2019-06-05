@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Modules\Mongodb\Http\Controllers';
+    protected $namespace = 'App\Modules\MongoDB\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

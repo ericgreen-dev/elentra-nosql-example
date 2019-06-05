@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'mongodb'], function () {
+Route::group(['prefix' => 'mongo'], function () {
     Route::get('/', function () {
         dd('This is the MongoDB module index page. Build something great!');
     });

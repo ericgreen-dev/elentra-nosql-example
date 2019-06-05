@@ -21,7 +21,7 @@ class AddressType extends GraphQLType {
      *
      * @return array
      */
-    public function fields() {
+    public function fields() : array {
         return [
             'street_number' => [
                 'type' => Type::string()

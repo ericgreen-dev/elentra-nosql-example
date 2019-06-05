@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Documents\Models;
+namespace App\Modules\MongoDB\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
