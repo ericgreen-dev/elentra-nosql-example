@@ -3,10 +3,10 @@
 namespace App\Modules\MariaDB\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\MariaDB\Models\User\Data;
+use App\Modules\MariaDB\Libraries\Support\Facades\User;
+use App\Modules\MariaDB\Models\Data;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 
 
 class DataController extends Controller {
@@ -20,9 +20,7 @@ class DataController extends Controller {
      * @return Response
      */
     public function index(Request $request) : Response {
-        return response(Data::user($request->user())
-            ->pluck('data')
-            ->first() ?? []);
+        return response(User::getDataAttribute());
     }
 
     /**
@@ -41,20 +39,20 @@ class DataController extends Controller {
      * @return Response
      */
     public function show(Request $request, $key) : Response {
-        $data = Data::user($request->user())->first();
+        $data = User::getDataAttribute($key);
 
-        if (!$data || !Arr::has($data->data, $key)) {
+        if (!$data) {
             return response(null, 404);
         }
-        return response(Arr::get($data->data, $key));
+        return response($data);
     }
 
     /**
      * Write user data to a single key. This will perform an overwrite of any existing values for that key and return
      * the new value for that key.
      *
-     * @param Request  $request
-     * @param string   $key
+     * @param Request $request
+     * @param string  $key
      *
      * @throws
      * @return Response
@@ -64,12 +62,15 @@ class DataController extends Controller {
             'user_id' => $request->user()->id
         ], ['data' => []]);
 
-        $data->forceFill([Data::path($key) => json_decode($request->getContent())]);
+        $raw  = $request->getContent();
+        $json = json_decode($raw);
+
+        $data->forceFill([Data::path($key) => $json ?? $raw]);
 
         if (!$data->save()) {
-            abort(500, __('Error writing key'));
+            abort(500, __('Error writing data'));
         }
-        return response(Arr::get($data->data, $key));
+        return response(User::getDataAttribute($key));
     }
 
     /**
@@ -81,17 +82,15 @@ class DataController extends Controller {
      * @return Response
      */
     public function destroy(Request $request, $key) : Response {
-        $data = Data::user($request->user())->first();
+        $data = User::getDataAttribute($key);
 
-        if (!$data || !Arr::has($data->data, $key)) {
+        if (!$data) {
             return response(null, 404);
         }
-        $value = Arr::get($data->data, $key);
-
-        if (!$data->deleteKey($key)) {
+        if (!User::dropDataAttribute($key)) {
             abort(500, __('Error deleting key'));
         }
-        return response($value);
+        return response($data);
     }
 
 }

@@ -3,6 +3,8 @@
 namespace App\Modules\MariaDB\Providers;
 
 use App\Modules\MariaDB\GraphQL\Queries\DataQuery;
+use App\Modules\MariaDB\GraphQL\Types\AddressType;
+use App\Modules\MariaDB\GraphQL\Types\ContactType;
 use App\Modules\MariaDB\GraphQL\Types\DataType;
 use App\Modules\MariaDB\GraphQL\Types\UserType;
 use Caffeinated\Modules\Support\ServiceProvider;
@@ -29,6 +31,8 @@ class GraphQLServiceProvider extends ServiceProvider {
     protected function bootTypes() : void {
         GraphQL::addType(UserType::class, 'user');
         GraphQL::addType(DataType::class, 'data');
+        GraphQL::addType(ContactType::class, 'contact');
+        GraphQL::addType(AddressType::class, 'address');
     }
 
     /**

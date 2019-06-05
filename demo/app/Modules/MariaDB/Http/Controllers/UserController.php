@@ -2,8 +2,8 @@
 
 namespace App\Modules\MariaDB\Http\Controllers;
 
-use App\Modules\MariaDB\Models\User\Data;
-use App\User;
+use App\Modules\MariaDB\Models\User;
+use App\Modules\MariaDB\Models\Data;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

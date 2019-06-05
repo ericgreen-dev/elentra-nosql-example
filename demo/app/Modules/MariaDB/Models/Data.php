@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\MariaDB\Models\User;
+namespace App\Modules\MariaDB\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Builder;

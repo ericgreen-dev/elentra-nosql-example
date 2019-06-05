@@ -36,11 +36,11 @@ class DataQuery extends Query {
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::int()
-            ],
-            'email' => [
-                'name' => 'email',
-                'type' => Type::string()
+                'type' => Type::int(),
+                'rules' => [
+                    'required',
+                    'exists:users,id'
+                ]
             ]
         ];
     }
@@ -54,6 +54,8 @@ class DataQuery extends Query {
      * @return mixed
      */
     public function resolve($root, $args, SelectFields $fields) {
+//        return Data
+
     dd($fields->getSelect(), $fields->getRelations());
 //        return Data::user($args['id'])->get();
 
