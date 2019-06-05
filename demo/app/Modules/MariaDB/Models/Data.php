@@ -2,8 +2,6 @@
 
 namespace App\Modules\MariaDB\Models;
 
-use App\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
@@ -33,24 +31,12 @@ class Data extends Model {
     ];
 
     /**
-     * Get the metadata owner
+     * Get the metadata user
      *
      * @return BelongsTo
      */
-    public function owner() : BelongsTo {
+    public function user() : BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * Scope data by a particular user
-     *
-     * @param Builder $builder
-     * @param User    $user
-     *
-     * @return Builder
-     */
-    public function scopeUser(Builder $builder, User $user) : Builder {
-        return $builder->where('user_id', '=', $user->id);
     }
 
     /**

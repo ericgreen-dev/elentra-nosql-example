@@ -43,7 +43,7 @@ class GraphQLServiceProvider extends ServiceProvider {
     protected function bootSchemas() : void {
         GraphQL::addSchema('maria', [
             'query' => [
-                'data' => DataQuery::class
+                'user_data' => DataQuery::class
             ],
             'mutation' => [
             ],

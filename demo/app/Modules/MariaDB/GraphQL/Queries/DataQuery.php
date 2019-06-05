@@ -1,8 +1,9 @@
 <?php
 
-
 namespace App\Modules\MariaDB\GraphQL\Queries;
 
+use App\Modules\MariaDB\Models\Data;
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
@@ -34,13 +35,10 @@ class DataQuery extends Query {
      */
     public function args() {
         return [
-            'id' => [
-                'name' => 'id',
+            'user' => [
+                'name' => 'user',
                 'type' => Type::int(),
-                'rules' => [
-                    'required',
-                    'exists:users,id'
-                ]
+                'rules' => ['required', 'exists:users,id']
             ]
         ];
     }
@@ -48,24 +46,18 @@ class DataQuery extends Query {
     /**
      * Resolve GraphQL query to Eloquent
      *
-     * @param $root
-     * @param $args
+     * @param array        $root
+     * @param array        $args
+     * @param SelectFields $fields
      *
      * @return mixed
      */
-    public function resolve($root, $args, SelectFields $fields) {
-//        return Data
-
-    dd($fields->getSelect(), $fields->getRelations());
-//        return Data::user($args['id'])->get();
-
-
-//        $select = $fields->getSelect();
-//        $with = $fields->getRelations();
-//
-//        $users = User::select($select)->with($with);
-//
-//        return $users->get();
+    public function resolve($root, $args, SelectFields $fields, ResolveInfo $info) {  //dd($info);
+        return Data::query()
+            ->where('user_id', $args['user'])
+            ->select($fields->getSelect())
+            ->with($fields->getRelations())
+            ->first();
     }
 
 }
