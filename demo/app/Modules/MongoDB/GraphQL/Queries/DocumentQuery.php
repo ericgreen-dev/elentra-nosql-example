@@ -3,13 +3,12 @@
 namespace App\Modules\MongoDB\GraphQL\Queries;
 
 use App\Modules\MongoDB\Models\Document;
-use GraphQL\Type\Definition\ListOfType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
 
-class DocumentsQuery extends Query {
+class DocumentQuery extends Query {
 
     /**
      * @var array Attributes
@@ -21,10 +20,10 @@ class DocumentsQuery extends Query {
     /**
      * Get the GraphQL type
      *
-     * @return ListOfType|void
+     * @return Type
      */
-    public function type() {
-        return Type::listOf(GraphQL::type('document'));
+    public function type() : Type {
+        return GraphQL::type('document');
     }
 
     /**
@@ -32,7 +31,7 @@ class DocumentsQuery extends Query {
      *
      * @return array
      */
-    public function args() {
+    public function args() : array {
         return [
             'id' => [
                 'name' => 'id',
@@ -52,8 +51,8 @@ class DocumentsQuery extends Query {
     /**
      * Resolve GraphQL query to Eloquent
      *
-     * @param $root
-     * @param $args
+     * @param array $root
+     * @param array $args
      *
      * @return mixed
      */
@@ -61,14 +60,14 @@ class DocumentsQuery extends Query {
         $query = Document::query();
 
         if (isset($args['id'])) {
-            $query->where('_id' , $args['id'])->get();
+            $query->where('_id' , $args['id']);
         }
         if (isset($args['title'])) {
-            $query->where('title', $args['title'])->get();
+            $query->where('title', $args['title']);
         }
         if (isset($args['version'])) {
-            $query->where('title', $args['version'])->get();
+            $query->where('title', $args['version']);
         }
-        return $query->get();
+        return $query->first();
     }
 }

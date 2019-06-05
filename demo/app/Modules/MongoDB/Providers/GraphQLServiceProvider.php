@@ -2,8 +2,8 @@
 
 namespace App\Modules\MongoDB\Providers;
 
-use App\Modules\MongoDB\GraphQL\Mutations\DocumentTitleMutation;
-use App\Modules\MongoDB\GraphQL\Queries\DocumentsQuery;
+use App\Modules\MongoDB\GraphQL\Mutations\UpdateDocumentMutation;
+use App\Modules\MongoDB\GraphQL\Queries\DocumentQuery;
 use App\Modules\MongoDB\GraphQL\Types\DocumentType;
 use Illuminate\Support\ServiceProvider;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -38,10 +38,10 @@ class GraphQLServiceProvider extends ServiceProvider {
     protected function bootSchemas() : void {
         GraphQL::addSchema('mongo', [
             'query' => [
-                'documents' => DocumentsQuery::class
+                'document' => DocumentQuery::class
             ],
             'mutation' => [
-                'updateDocumentTitle' => DocumentTitleMutation::class
+                'updateDocument' => UpdateDocumentMutation::class
             ]
         ]);
     }

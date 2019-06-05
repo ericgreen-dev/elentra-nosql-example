@@ -23,22 +23,26 @@ class DocumentType extends GraphQLType {
      * 
      * @return array
      */
-    public function fields() {
-      return [
-        'id' => [
-          'type'        => Type::nonNull(Type::string()),
-          'description' => 'The id of the document',
-          'alias'       => '_id', // Use 'alias', if the database column is different from the type name
-        ],
-        'title' => [
-          'type'        => Type::string(),
-          'description' => 'The title of the document',
-        ],
-        'version' => [
-            'type'        => Type::string(),
-            'description' => 'The document version',
-        ]
-      ];
+    public function fields() : array {
+          return [
+            'id' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'The id of the document',
+                'alias' => '_id', // Use 'alias', if the database column is different from the type name
+            ],
+            'title' => [
+              'type' => Type::string(),
+              'description' => 'The title of the document',
+            ],
+            'content' => [
+                'type' => Type::string(),
+                'description' => 'The body of the document',
+            ],
+            'version' => [
+                'type' => Type::int(),
+                'description' => 'The document version',
+            ]
+        ];
     }
 
   }

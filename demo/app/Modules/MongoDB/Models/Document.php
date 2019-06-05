@@ -22,6 +22,7 @@ class Document extends Model {
      */
     protected $fillable = [
         'title',
+        'content',
         'version'
     ];
 

@@ -8,7 +8,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
 
 
-class DocumentTitleMutation extends Mutation {
+class UpdateDocumentMutation extends Mutation {
 
     /**
      * @var array Attributes
@@ -20,9 +20,9 @@ class DocumentTitleMutation extends Mutation {
     /**
      * Get the GraphQL type
      *
-     * @return mixed
+     * @return Type
      */
-    public function type() {
+    public function type() : Type {
         return GraphQL::type('document');
     }
 
@@ -31,7 +31,7 @@ class DocumentTitleMutation extends Mutation {
      *
      * @return array
      */
-    public function args() {
+    public function args() : array {
         return [
             'id' => [
                 'name' => 'id',
@@ -39,6 +39,10 @@ class DocumentTitleMutation extends Mutation {
             ],
             'title' => [
                 'name' => 'title',
+                'type' => Type::string()
+            ],
+            'content' => [
+                'name' => 'content',
                 'type' => Type::string()
             ]
         ];
@@ -51,15 +55,11 @@ class DocumentTitleMutation extends Mutation {
      *
      * @return array
      */
-    public function rules(array $args = []) {
+    public function rules(array $args = []) : array {
         return [
-            'id' => [
-                'required'
-            ],
-            'title' => [
-                'required',
-                'string'
-            ]
+            'id'      => ['required'],
+            'title'   => ['string', 'max:50'],
+            'content' => ['string', 'max:500']
         ];
     }
 
@@ -69,7 +69,7 @@ class DocumentTitleMutation extends Mutation {
      * @param $root
      * @param $args
      *
-     * @return Document
+     * @return mixed
      */
     public function resolve($root, $args) {
         $document = Document::find($args['id']);
@@ -78,7 +78,8 @@ class DocumentTitleMutation extends Mutation {
             return null;
         }
 
-        $document->title = $args['title'];
+        $document->fill($args);
+        $document->version = ($document->version ?? 0) + 1;
         $document->save();
 
         return $document;
