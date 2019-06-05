@@ -23,35 +23,4 @@ class User extends Facade {
         return 'maria.auth.user';
     }
 
-    /**
-     * Get an  attribute from the user's data
-     *
-     * @param string $attribute
-     * @return mixed
-     */
-    public static function getDataAttribute($attribute = 'data') {
-        return self::getFacadeRoot()
-            ->data()
-            ->select($attribute === 'data' ? 'data' : Data::path($attribute) . ' as ' . $attribute)
-            ->pluck($attribute)
-            ->first();
-    }
-
-    /**
-     * Drop an attribute from the user's data
-     *
-     * @param string $attribute
-     * @return mixed
-     */
-    public static function dropDataAttribute($attribute) : bool {
-        $data = self::getFacadeRoot()
-            ->data()
-            ->first();
-
-        if (!$data) {
-            return false;
-        }
-        return $data->deleteKey($attribute);
-    }
-
 }
