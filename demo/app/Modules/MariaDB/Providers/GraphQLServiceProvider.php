@@ -5,6 +5,7 @@ namespace App\Modules\MariaDB\Providers;
 use App\Modules\MariaDB\GraphQL\Mutations\UpdateContactMutation;
 use App\Modules\MariaDB\GraphQL\Queries\DataQuery;
 use App\Modules\MariaDB\GraphQL\Types\AddressType;
+use App\Modules\MariaDB\GraphQL\Types\ContactInputType;
 use App\Modules\MariaDB\GraphQL\Types\ContactType;
 use App\Modules\MariaDB\GraphQL\Types\DataType;
 use App\Modules\MariaDB\GraphQL\Types\UserType;
@@ -34,6 +35,7 @@ class GraphQLServiceProvider extends ServiceProvider {
         GraphQL::addType(DataType::class, 'data');
         GraphQL::addType(ContactType::class, 'contact');
         GraphQL::addType(AddressType::class, 'address');
+        GraphQL::addType(ContactInputType::class, 'contact_input');
     }
 
     /**
@@ -47,7 +49,7 @@ class GraphQLServiceProvider extends ServiceProvider {
                 'user_data' => DataQuery::class
             ],
             'mutation' => [
-//                'update_contact' => UpdateContactMutation::class
+                'update_contact' => UpdateContactMutation::class
             ],
             'middleware' => [
                 'auth.basic'
