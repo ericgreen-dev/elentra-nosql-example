@@ -24,10 +24,10 @@ Route::prefix('maria')->middleware('auth.basic')->group(function (Router $router
     /**
      * User Data
      */
-    $router->get('user-data', 'DataController@index');
+    $router->get('users/{user}/data', 'DataController@index');
 
-    $router->get('user-data/{key}', 'DataController@show');
-    $router->put('user-data/{key}', 'DataController@save');
-    $router->delete('user-data/{key}', 'DataController@destroy');
+    $router->get('users/{user}/data/{key}', 'DataController@show');
+    $router->put('users/{user}/data/{key}', 'DataController@save');
+    $router->delete('users/{user}/data/{key}', 'DataController@destroy');
 
 });
