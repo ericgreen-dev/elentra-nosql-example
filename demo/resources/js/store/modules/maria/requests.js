@@ -1,7 +1,7 @@
 import * as Types from './types';
 
 /**
- * Fetch a user's data
+ * Fetch a user's data (GraphQL)
  *
  * @param {int} user
  *
@@ -21,3 +21,18 @@ export const fetchUserData = ({ user }) => ({
                 }
             }`
 });
+
+/**
+ * Fetch users (REST)
+ *
+ * @return {object}
+ */
+export const fetchUsers = () => ({
+    mutations: [
+        `maria/${Types.FETCH_USERS_REQUEST}`,
+        `maria/${Types.FETCH_USERS_SUCCESS}`,
+        `maria/${Types.FETCH_USERS_FAILURE}`,
+    ],
+    path: '/maria/users',
+});
+

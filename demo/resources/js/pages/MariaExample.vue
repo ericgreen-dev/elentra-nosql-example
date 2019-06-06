@@ -1,28 +1,31 @@
 <template>
     <div>
-        Maria Example
+        <users-list v-if="users.length" :users="users"></users-list>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
+    import UsersList from '../components/UsersList';
 
     export default {
         name: 'maria-example',
+        components: {
+            UsersList
+        },
         methods: {
             ...mapActions('maria', [
-                'fetchUserData'
+                'fetchUsers',
             ])
         },
         computed: {
             ...mapGetters('maria', [
-                'getUserData'
+                'users'
             ])
         },
         async mounted() {
             try {
-                await this.fetchUserData({ user: 12 });
-                console.log(this.getUserData(12))
+                await this.fetchUsers();
             } catch (e) {
                 //
             }
