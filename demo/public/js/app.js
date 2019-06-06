@@ -1851,7 +1851,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       isLoading: false,
-      isSaving: false
+      isSaving: false,
+      data: {
+        primary_contact: {
+          primary_email: '',
+          primary_phone: ''
+        },
+        emergency_contact: {
+          primary_email: '',
+          primary_phone: ''
+        },
+        primary_address: {
+          street_number: '',
+          street_name: '',
+          postal_code: ''
+        }
+      }
     };
   },
   props: {
@@ -1859,7 +1874,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Object
     }
   },
-  computed: {},
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('maria', ['getUserData'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maria', ['setUser', 'fetchUserData']), {
     onClose: function onClose() {
       this.setUser(null);
@@ -1903,22 +1918,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 4:
-                _context2.next = 8;
+                this.data = this.getUserData(this.user.id);
+                _context2.next = 9;
                 break;
 
-              case 6:
-                _context2.prev = 6;
+              case 7:
+                _context2.prev = 7;
                 _context2.t0 = _context2["catch"](1);
 
-              case 8:
+              case 9:
                 this.isLoading = false;
 
-              case 9:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 6]]);
+        }, _callee2, this, [[1, 7]]);
       }));
 
       function user() {
@@ -38802,15 +38818,188 @@ var render = function() {
                 : _c("form", [
                     _c("h5", [_vm._v("Primary Contact")]),
                     _vm._v(" "),
-                    _vm._m(0),
+                    _c("div", { staticClass: "form-row pb-3" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("label", { attrs: { for: "primary_email" } }, [
+                          _vm._v("Email Address")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data.primary_contact.primary_email,
+                              expression: "data.primary_contact.primary_email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "email",
+                            id: "primary_email",
+                            placeholder: "email@example.com",
+                            required: ""
+                          },
+                          domProps: {
+                            value: _vm.data.primary_contact.primary_email
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.data.primary_contact,
+                                "primary_email",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("label", { attrs: { for: "primary_phone" } }, [
+                          _vm._v("Phone Number")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data.primary_contact.primary_phone,
+                              expression: "data.primary_contact.primary_phone"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "tel",
+                            id: "primary_phone",
+                            placeholder: "(000) 000-0000",
+                            required: ""
+                          },
+                          domProps: {
+                            value: _vm.data.primary_contact.primary_phone
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.data.primary_contact,
+                                "primary_phone",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("h5", [_vm._v("Emergency Contact")]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("div", { staticClass: "form-row pb-3" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("label", { attrs: { for: "emergency_email" } }, [
+                          _vm._v("Email Address")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "email",
+                            id: "emergency_email",
+                            placeholder: "email@example.com",
+                            disabled: ""
+                          },
+                          domProps: {
+                            value: _vm.data.emergency_contact.primary_email
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("label", { attrs: { for: "emergency_phone" } }, [
+                          _vm._v("Phone Number")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "tel",
+                            id: "emergency_phone",
+                            placeholder: "(000) 000-0000",
+                            disabled: ""
+                          },
+                          domProps: {
+                            value: _vm.data.emergency_contact.primary_phone
+                          }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("h5", [_vm._v("Primary Address")]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _c("div", { staticClass: "form-row pb-3" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("label", { attrs: { for: "street_number" } }, [
+                          _vm._v("Street Number")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "street_number",
+                            placeholder: "Street Number",
+                            disabled: ""
+                          },
+                          domProps: {
+                            value: _vm.data.primary_address.street_number
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3 mb-3" }, [
+                        _c("label", { attrs: { for: "street_name" } }, [
+                          _vm._v("Street Name")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "street_name",
+                            placeholder: "Street Name",
+                            disabled: ""
+                          },
+                          domProps: {
+                            value: _vm.data.primary_address.street_name
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3 mb-3" }, [
+                        _c("label", { attrs: { for: "postal_code" } }, [
+                          _vm._v("Postal Code")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "postal_code",
+                            placeholder: "Postal Code",
+                            disabled: ""
+                          },
+                          domProps: {
+                            value: _vm.data.primary_address.postal_code
+                          }
+                        })
+                      ])
+                    ])
                   ]),
               _vm._v(" "),
               _c("div", { staticClass: "d-flex justify-content-between" }, [
@@ -38853,132 +39042,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row pb-3" }, [
-      _c("div", { staticClass: "col-md-6 mb-3" }, [
-        _c("label", { attrs: { for: "primary_email" } }, [
-          _vm._v("Email Address")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            id: "primary_email",
-            placeholder: "email@example.com"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 mb-3" }, [
-        _c("label", { attrs: { for: "primary_phone" } }, [
-          _vm._v("Phone Number")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "tel",
-            id: "primary_phone",
-            placeholder: "(000) 000-0000"
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row pb-3" }, [
-      _c("div", { staticClass: "col-md-6 mb-3" }, [
-        _c("label", { attrs: { for: "emergency_email" } }, [
-          _vm._v("Email Address")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            id: "emergency_email",
-            placeholder: "email@example.com",
-            disabled: ""
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 mb-3" }, [
-        _c("label", { attrs: { for: "emergency_phone" } }, [
-          _vm._v("Phone Number")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "tel",
-            id: "emergency_phone",
-            placeholder: "(000) 000-0000",
-            disabled: ""
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row pb-3" }, [
-      _c("div", { staticClass: "col-md-6 mb-3" }, [
-        _c("label", { attrs: { for: "street_number" } }, [
-          _vm._v("Street Number")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "street_number",
-            placeholder: "Street Number",
-            disabled: ""
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-3 mb-3" }, [
-        _c("label", { attrs: { for: "street_name" } }, [_vm._v("Street Name")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "street_name",
-            placeholder: "Street Name",
-            disabled: ""
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-3 mb-3" }, [
-        _c("label", { attrs: { for: "postal_code" } }, [_vm._v("Postal Code")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "postal_code",
-            placeholder: "Postal Code",
-            disabled: ""
-          }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -53162,7 +53226,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USER_DATA_SUCCESS"], function (state, _ref) {
   var payload = _ref.payload,
       meta = _ref.meta;
-  state.data[meta.user] = payload.data;
+  state.data[meta.user] = payload.data.user_data.data;
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USER_DATA_FAILURE"], function (state, payload) {//
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_REQUEST"], function (state, payload) {//
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_SUCCESS"], function (state, _ref2) {
@@ -53219,7 +53283,7 @@ var fetchUserData = function fetchUserData(_ref) {
       }
     }],
     schema: 'maria',
-    query: "query FetchUserData {\n                user_data(user: ".concat(user, ") {\n                    user { email, id },\n                    data { primary_contact { primary_email } }\n                }\n            }")
+    query: "query FetchUserData {\n    user_data(user: ".concat(user, ") {\n        user { email, id },\n        data { \n            primary_contact { \n                primary_email,\n                primary_phone\n            },\n            emergency_contact {\n                primary_email,\n                primary_phone\n            },\n            primary_address {\n                street_number,\n                street_name,\n                postal_code\n            }\n        }\n    }\n}")
   };
 };
 /**

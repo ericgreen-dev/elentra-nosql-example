@@ -9,37 +9,37 @@
                     <div class="form-row pb-3">
                         <div class="col-md-6 mb-3">
                             <label for="primary_email">Email Address</label>
-                            <input type="email" class="form-control" id="primary_email" placeholder="email@example.com">
+                            <input type="email" class="form-control" id="primary_email" placeholder="email@example.com" v-model="data.primary_contact.primary_email" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="primary_phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="primary_phone" placeholder="(000) 000-0000">
+                            <input type="tel" class="form-control" id="primary_phone" placeholder="(000) 000-0000" v-model="data.primary_contact.primary_phone" required>
                         </div>
                     </div>
                     <h5>Emergency Contact</h5>
                     <div class="form-row pb-3">
                         <div class="col-md-6 mb-3">
                             <label for="emergency_email">Email Address</label>
-                            <input type="email" class="form-control" id="emergency_email" placeholder="email@example.com" disabled>
+                            <input type="email" class="form-control" id="emergency_email" placeholder="email@example.com" :value="data.emergency_contact.primary_email" disabled>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="emergency_phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="emergency_phone" placeholder="(000) 000-0000" disabled>
+                            <input type="tel" class="form-control" id="emergency_phone" placeholder="(000) 000-0000" :value="data.emergency_contact.primary_phone" disabled>
                         </div>
                     </div>
                     <h5>Primary Address</h5>
                     <div class="form-row pb-3">
                         <div class="col-md-6 mb-3">
                             <label for="street_number">Street Number</label>
-                            <input type="text" class="form-control" id="street_number" placeholder="Street Number" disabled>
+                            <input type="text" class="form-control" id="street_number" placeholder="Street Number" :value="data.primary_address.street_number" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="street_name">Street Name</label>
-                            <input type="text" class="form-control" id="street_name" placeholder="Street Name" disabled>
+                            <input type="text" class="form-control" id="street_name" placeholder="Street Name" :value="data.primary_address.street_name" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="postal_code">Postal Code</label>
-                            <input type="text" class="form-control" id="postal_code" placeholder="Postal Code" disabled>
+                            <input type="text" class="form-control" id="postal_code" placeholder="Postal Code" :value="data.primary_address.postal_code" disabled>
                         </div>
                     </div>
                 </form>
@@ -63,16 +63,33 @@
         data() {
             return {
                 isLoading: false,
-                isSaving: false
+                isSaving: false,
+                data: {
+                    primary_contact: {
+                        primary_email: '',
+                        primary_phone: ''
+                    },
+                    emergency_contact: {
+                        primary_email: '',
+                        primary_phone: ''
+                    },
+                    primary_address: {
+                        street_number: '',
+                        street_name: '',
+                        postal_code: ''
+                    }
+                }
             };
         },
         props: {
             user: {
                 type: Object
-            }
+            },
         },
         computed: {
-
+            ...mapGetters('maria', [
+                'getUserData'
+            ])
         },
         methods: {
             ...mapActions('maria', [
@@ -91,6 +108,7 @@
                 this.isLoading = true;
                 try {
                     await this.fetchUserData({ user: this.user.id });
+                    this.data = this.getUserData(this.user.id);
                 } catch (e) {
                     //
                 }

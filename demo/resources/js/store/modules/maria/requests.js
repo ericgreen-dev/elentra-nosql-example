@@ -14,12 +14,27 @@ export const fetchUserData = ({ user }) => ({
         { type: `maria/${Types.FETCH_USER_DATA_FAILURE}`, meta: { user } }
     ],
     schema: 'maria',
-    query: `query FetchUserData {
-                user_data(user: ${user}) {
-                    user { email, id },
-                    data { primary_contact { primary_email } }
-                }
-            }`
+    query:
+`query FetchUserData {
+    user_data(user: ${user}) {
+        user { email, id },
+        data { 
+            primary_contact { 
+                primary_email,
+                primary_phone
+            },
+            emergency_contact {
+                primary_email,
+                primary_phone
+            },
+            primary_address {
+                street_number,
+                street_name,
+                postal_code
+            }
+        }
+    }
+}`
 });
 
 /**

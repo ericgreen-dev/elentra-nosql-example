@@ -25,7 +25,7 @@ export default {
      * @return {void}
      */
     [Types.FETCH_USER_DATA_SUCCESS] (state, { payload, meta }) {
-        state.data[meta.user] = payload.data;
+        state.data[meta.user] = payload.data.user_data.data;
     },
 
     /**
