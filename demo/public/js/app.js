@@ -1845,6 +1845,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'user-data',
@@ -1866,6 +1867,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           street_name: '',
           postal_code: ''
         }
+      },
+      notice: {
+        type: '',
+        message: '',
+        visible: false,
+        timeout: null
       }
     };
   },
@@ -1875,7 +1882,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('maria', ['getUserData'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maria', ['setUser', 'fetchUserData']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maria', ['setUser', 'fetchUserData', 'updateUserData']), {
+    showNotice: function showNotice(type, message) {
+      var _this = this;
+
+      var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+
+      if (this.notice.timeout) {
+        clearTimeout(this.notice.timeout);
+      }
+
+      this.notice.type = "alert-".concat(type);
+      this.notice.message = message;
+      this.notice.visible = true;
+      this.notice.timeout = setTimeout(function () {
+        return _this.clearNotice();
+      }, timeout);
+    },
+    clearNotice: function clearNotice() {
+      this.notice.visible = false;
+    },
     onClose: function onClose() {
       this.setUser(null);
     },
@@ -1887,11 +1913,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.isSaving = true;
+                _context.prev = 1;
+                _context.next = 4;
+                return this.updateUserData({
+                  user: this.user.id,
+                  data: {
+                    primaryContact: {
+                      primaryEmail: this.data.primary_contact.primary_email,
+                      primaryPhone: this.data.primary_contact.primary_phone
+                    }
+                  }
+                });
+
+              case 4:
+                this.showNotice('success', 'User successfully updated!');
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+                this.showNotice('danger', 'An error occurred while trying to update this user.');
+
+              case 10:
+                this.isSaving = false;
+
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this, [[1, 7]]);
       }));
 
       function onSave() {
@@ -1911,30 +1964,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 this.isLoading = true;
-                _context2.prev = 1;
-                _context2.next = 4;
+                this.notice.visible = false;
+                _context2.prev = 2;
+                _context2.next = 5;
                 return this.fetchUserData({
                   user: this.user.id
                 });
 
-              case 4:
+              case 5:
                 this.data = this.getUserData(this.user.id);
-                _context2.next = 9;
+                _context2.next = 11;
                 break;
 
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](1);
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](2);
+                this.showNotice('danger', 'An error occurred while trying to fetch this user\'s data.');
 
-              case 9:
+              case 11:
                 this.isLoading = false;
 
-              case 10:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 7]]);
+        }, _callee2, this, [[2, 8]]);
       }));
 
       function user() {
@@ -38811,6 +38866,18 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
+              _vm.notice.visible
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert",
+                      class: _vm.notice.type,
+                      attrs: { role: "alert" }
+                    },
+                    [_vm._v(_vm._s(_vm.notice.message))]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _vm.isLoading
                 ? _c("div", { staticClass: "p-3 text-center" }, [
                     _vm._v("Loading...")
@@ -39007,6 +39074,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-outline-secondary",
+                    attrs: { disabled: _vm.isSaving },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
@@ -39021,6 +39089,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-success",
+                    attrs: { disabled: _vm.isSaving },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
@@ -53154,6 +53223,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
 
     return fetchUserData;
+  }(),
+
+  /**
+   * Update a user's data
+   *
+   * @param {Function} dispatch
+   * @param {int}      user
+   * @param {object}   data
+   *
+   * @return {Promise<*>}
+   */
+  updateUserData: function () {
+    var _updateUserData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref5, _ref6) {
+      var dispatch, user, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch = _ref5.dispatch;
+              user = _ref6.user, data = _ref6.data;
+              return _context3.abrupt("return", dispatch('graphql', _requests__WEBPACK_IMPORTED_MODULE_2__["updateUserData"]({
+                user: user,
+                data: data
+              }), {
+                root: true
+              }));
+
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    function updateUserData(_x4, _x5) {
+      return _updateUserData.apply(this, arguments);
+    }
+
+    return updateUserData;
   }()
 });
 
@@ -53218,6 +53329,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/store/modules/maria/types.js");
 var _Types$FETCH_USER_DAT;
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -53228,15 +53341,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       meta = _ref.meta;
   state.data[meta.user] = payload.data.user_data.data;
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USER_DATA_FAILURE"], function (state, payload) {//
+}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER_DATA_REQUEST"], function (state, payload) {//
+}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER_DATA_SUCCESS"], function (state, _ref2) {
+  var payload = _ref2.payload,
+      meta = _ref2.meta;
+  state.data[meta.user] = _objectSpread({}, state.data[meta.user], payload.data.update_contact.data);
+}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER_DATA_FAILURE"], function (state, payload) {//
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_REQUEST"], function (state, payload) {//
-}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_SUCCESS"], function (state, _ref2) {
-  var payload = _ref2.payload;
+}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_SUCCESS"], function (state, _ref3) {
+  var payload = _ref3.payload;
   payload.forEach(function (user) {
     return vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state.users, user.id, user);
   });
 }), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_USERS_FAILURE"], function (state, payload) {//
-}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["SET_CURRENT_USER"], function (state, _ref3) {
-  var payload = _ref3.payload;
+}), _defineProperty(_Types$FETCH_USER_DAT, _types__WEBPACK_IMPORTED_MODULE_1__["SET_CURRENT_USER"], function (state, _ref4) {
+  var payload = _ref4.payload;
   state.ui.user = payload;
 }), _Types$FETCH_USER_DAT);
 
@@ -53246,13 +53365,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!******************************************************!*\
   !*** ./resources/js/store/modules/maria/requests.js ***!
   \******************************************************/
-/*! exports provided: fetchUserData, fetchUsers */
+/*! exports provided: fetchUserData, fetchUsers, updateUserData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserData", function() { return fetchUserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUserData", function() { return updateUserData; });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./resources/js/store/modules/maria/types.js");
 
 /**
@@ -53296,6 +53416,41 @@ var fetchUsers = function fetchUsers() {
   return {
     mutations: ["maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_USERS_REQUEST"]), "maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_USERS_SUCCESS"]), "maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_USERS_FAILURE"])],
     path: '/maria/users'
+  };
+};
+/**
+ * Update a user's data (GraphQL)
+ *
+ * @param {int}    user
+ * @param {object} data
+ *
+ * @return {object}
+ */
+
+var updateUserData = function updateUserData(_ref2) {
+  var user = _ref2.user,
+      _ref2$data$primaryCon = _ref2.data.primaryContact,
+      primaryEmail = _ref2$data$primaryCon.primaryEmail,
+      primaryPhone = _ref2$data$primaryCon.primaryPhone;
+  return {
+    mutations: [{
+      type: "maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USER_DATA_REQUEST"]),
+      meta: {
+        user: user
+      }
+    }, {
+      type: "maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USER_DATA_SUCCESS"]),
+      meta: {
+        user: user
+      }
+    }, {
+      type: "maria/".concat(_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USER_DATA_FAILURE"]),
+      meta: {
+        user: user
+      }
+    }],
+    schema: 'maria',
+    query: "mutation UpdateUserData {\n    update_contact(\n        user_id: ".concat(user, ", \n        data: { \n            primary_phone: ").concat(JSON.stringify(primaryPhone), ", \n            primary_email: ").concat(JSON.stringify(primaryEmail), " \n    }) {\n        data { \n            primary_contact { \n                primary_email,\n                primary_phone\n            }\n        }\n    }\n}")
   };
 };
 
@@ -53354,7 +53509,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/store/modules/maria/types.js ***!
   \***************************************************/
-/*! exports provided: FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAILURE, SET_CURRENT_USER */
+/*! exports provided: FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAILURE, UPDATE_USER_DATA_REQUEST, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_FAILURE, SET_CURRENT_USER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53365,6 +53520,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_DATA_REQUEST", function() { return FETCH_USER_DATA_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_DATA_SUCCESS", function() { return FETCH_USER_DATA_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_DATA_FAILURE", function() { return FETCH_USER_DATA_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_USER_DATA_REQUEST", function() { return UPDATE_USER_DATA_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_USER_DATA_SUCCESS", function() { return UPDATE_USER_DATA_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_USER_DATA_FAILURE", function() { return UPDATE_USER_DATA_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_USER", function() { return SET_CURRENT_USER; });
 /**
  * Fetch users
@@ -53379,6 +53537,13 @@ var FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE";
 var FETCH_USER_DATA_REQUEST = "FETCH_USER_DATA_REQUEST";
 var FETCH_USER_DATA_SUCCESS = "FETCH_USER_DATA_SUCCESS";
 var FETCH_USER_DATA_FAILURE = "FETCH_USER_DATA_FAILURE";
+/**
+ * Update User Data
+ */
+
+var UPDATE_USER_DATA_REQUEST = "UPDATE_USER_DATA_REQUEST";
+var UPDATE_USER_DATA_SUCCESS = "UPDATE_USER_DATA_SUCCESS";
+var UPDATE_USER_DATA_FAILURE = "UPDATE_USER_DATA_FAILURE";
 /**
  * UI state
  */

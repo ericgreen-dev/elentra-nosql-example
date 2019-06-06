@@ -43,6 +43,45 @@ export default {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Update User Data – Request
+     *
+     * @param {object} state
+     * @param {*}      payload
+     *
+     * @return {void}
+     */
+    [Types.UPDATE_USER_DATA_REQUEST] (state, payload) {
+        //
+    },
+
+    /**
+     * Update User Data – Success
+     *
+     * @param {object} state
+     * @param {object} meta
+     * @param {object} payload
+     *
+     * @return {void}
+     */
+    [Types.UPDATE_USER_DATA_SUCCESS] (state, { payload, meta }) {
+        state.data[meta.user] = { ...state.data[meta.user], ...payload.data.update_contact.data };
+    },
+
+    /**
+     * Update User Data – Failure
+     *
+     * @param {object} state
+     * @param {*}      payload
+     *
+     * @return {void}
+     */
+    [Types.UPDATE_USER_DATA_FAILURE] (state, payload) {
+        //
+    },
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Fetch Users – Request
      *
      * @param {object} state

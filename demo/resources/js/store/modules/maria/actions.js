@@ -38,6 +38,19 @@ export default {
      */
     async fetchUserData({ dispatch }, { user }) {
         return dispatch('graphql', Requests.fetchUserData({ user }), { root: true });
+    },
+
+    /**
+     * Update a user's data
+     *
+     * @param {Function} dispatch
+     * @param {int}      user
+     * @param {object}   data
+     *
+     * @return {Promise<*>}
+     */
+    async updateUserData({ dispatch }, { user, data }) {
+        return dispatch('graphql', Requests.updateUserData({ user, data }), { root: true });
     }
 
 };

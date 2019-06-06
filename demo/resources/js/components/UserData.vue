@@ -3,6 +3,7 @@
         <template v-if="user">
             <div class="card-header">{{ user.name }}</div>
             <div class="card-body">
+                <div v-if="notice.visible" class="alert" :class="notice.type" role="alert">{{ notice.message }}</div>
                 <div class="p-3 text-center" v-if="isLoading">Loading...</div>
                 <form v-else>
                     <h5>Primary Contact</h5>
@@ -44,8 +45,8 @@
                     </div>
                 </form>
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-outline-secondary" @click.prevent="onClose">Cancel</button>
-                    <button class="btn btn-success" @click.prevent="onSave">Save</button>
+                    <button class="btn btn-outline-secondary" :disabled="isSaving" @click.prevent="onClose">Cancel</button>
+                    <button class="btn btn-success" :disabled="isSaving" @click.prevent="onSave">Save</button>
                 </div>
             </div>
         </template>
@@ -78,6 +79,12 @@
                         street_name: '',
                         postal_code: ''
                     }
+                },
+                notice: {
+                    type: '',
+                    message: '',
+                    visible: false,
+                    timeout: null
                 }
             };
         },
@@ -94,23 +101,52 @@
         methods: {
             ...mapActions('maria', [
                 'setUser',
-                'fetchUserData'
+                'fetchUserData',
+                'updateUserData'
             ]),
+            showNotice(type, message, timeout = 1000) {
+                if (this.notice.timeout) {
+                    clearTimeout(this.notice.timeout);
+                }
+                this.notice.type    = `alert-${type}`;
+                this.notice.message = message;
+                this.notice.visible = true;
+                this.notice.timeout = setTimeout(() => this.clearNotice(), timeout);
+            },
+            clearNotice() {
+                this.notice.visible = false;
+            },
             onClose() {
                 this.setUser(null);
             },
             async onSave() {
-
+                this.isSaving = true;
+                try {
+                    await this.updateUserData({
+                        user: this.user.id,
+                        data: {
+                            primaryContact: {
+                                primaryEmail: this.data.primary_contact.primary_email,
+                                primaryPhone: this.data.primary_contact.primary_phone
+                            }
+                        }
+                    });
+                    this.showNotice('success', 'User successfully updated!');
+                } catch (e) {
+                    this.showNotice('danger', 'An error occurred while trying to update this user.');
+                }
+                this.isSaving = false;
             }
         },
         watch: {
             async user() {
                 this.isLoading = true;
+                this.notice.visible = false;
                 try {
                     await this.fetchUserData({ user: this.user.id });
                     this.data = this.getUserData(this.user.id);
                 } catch (e) {
-                    //
+                    this.showNotice('danger', 'An error occurred while trying to fetch this user\'s data.');
                 }
                 this.isLoading = false;
             }

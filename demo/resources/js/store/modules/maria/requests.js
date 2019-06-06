@@ -51,3 +51,36 @@ export const fetchUsers = () => ({
     path: '/maria/users',
 });
 
+
+/**
+ * Update a user's data (GraphQL)
+ *
+ * @param {int}    user
+ * @param {object} data
+ *
+ * @return {object}
+ */
+export const updateUserData = ({ user, data: { primaryContact: { primaryEmail, primaryPhone }} }) => ({
+    mutations: [
+        { type: `maria/${Types.UPDATE_USER_DATA_REQUEST}`, meta: { user } },
+        { type: `maria/${Types.UPDATE_USER_DATA_SUCCESS}`, meta: { user } },
+        { type: `maria/${Types.UPDATE_USER_DATA_FAILURE}`, meta: { user } }
+    ],
+    schema: 'maria',
+    query:
+`mutation UpdateUserData {
+    update_contact(
+        user_id: ${user}, 
+        data: { 
+            primary_phone: ${JSON.stringify(primaryPhone)}, 
+            primary_email: ${JSON.stringify(primaryEmail)} 
+    }) {
+        data { 
+            primary_contact { 
+                primary_email,
+                primary_phone
+            }
+        }
+    }
+}`
+});
