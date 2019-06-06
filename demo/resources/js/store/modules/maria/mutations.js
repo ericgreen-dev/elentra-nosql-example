@@ -79,4 +79,18 @@ export default {
         //
     },
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Set the currently visible user
+     *
+     * @param {object} state
+     * @param {*}      payload
+     *
+     * @return {void}
+     */
+    [Types.SET_CURRENT_USER] (state, { payload }) {
+        state.ui.user = payload;
+    },
+
 };

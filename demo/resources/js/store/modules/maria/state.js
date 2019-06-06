@@ -1,4 +1,7 @@
 export default () => ({
     users: {},
-    data: {}
+    data: {},
+    ui: {
+        user: null
+    }
 });

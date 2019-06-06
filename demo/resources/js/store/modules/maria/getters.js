@@ -9,6 +9,14 @@ export default {
     users: (state) => Object.values(state.users),
 
     /**
+     * Get the currently selected user
+     *
+     * @param state
+     * @return {object}
+     */
+    currentUser: (state) => state.users[state.ui.user],
+
+    /**
      * Get a user's data
      *
      * @param {object} state
