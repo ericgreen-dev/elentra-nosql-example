@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('mongo')->middleware('auth.basic')->group(function (Router $router) {
+Route::prefix('mongo')->group(function (Router $router) {
 
     /**
      * Documents API resource

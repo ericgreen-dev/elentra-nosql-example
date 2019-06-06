@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Document;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +11,4 @@ use App\Models\Document;
 |
 */
 
-Route::get('/', function () {
-
-    dd(Document::all());
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');

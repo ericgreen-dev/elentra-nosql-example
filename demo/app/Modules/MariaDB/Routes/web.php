@@ -11,8 +11,6 @@
 |
 */
 
-Route::group(['prefix' => 'mariadb'], function () {
-    Route::get('/', function () {
-        dd('This is the MariaDB module index page. Build something great!');
-    });
+Route::group(['prefix' => 'maria'], function () {
+    Route::get('/', 'WebController@index')->name('mariadb::example.index');
 });

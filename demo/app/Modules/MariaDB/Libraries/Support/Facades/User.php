@@ -2,7 +2,6 @@
 
 namespace App\Modules\MariaDB\Libraries\Support\Facades;
 
-use App\Modules\MariaDB\Models\Data;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Facade;
 

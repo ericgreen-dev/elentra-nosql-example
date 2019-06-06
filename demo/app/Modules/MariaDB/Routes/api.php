@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('maria')->middleware('auth.basic')->group(function (Router $router) {
+Route::prefix('maria')->group(function (Router $router) {
 
     /**
      * Users
