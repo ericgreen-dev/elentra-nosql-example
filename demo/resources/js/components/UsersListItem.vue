@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <a href="#" @click.prevent="onClick">{{user.name}}</a>
+    <div class="d-flex justify-content-between">
+        <a href="#" @click.prevent="onClick">{{user.name}}</a><span v-if="isActive"> > </span>
     </div>
 </template>
 
@@ -18,7 +18,10 @@
         computed: {
             ...mapGetters('maria', [
                 'currentUser'
-            ])
+            ]),
+            isActive() {
+                return this.currentUser && this.user.id === this.currentUser.id;
+            }
         },
         methods: {
             ...mapActions('maria', [

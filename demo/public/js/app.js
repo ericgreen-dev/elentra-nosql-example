@@ -1806,16 +1806,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'user-data',
+  data: function data() {
+    return {
+      isLoading: false,
+      isSaving: false
+    };
+  },
   props: {
     user: {
       type: Object
     }
   },
   computed: {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maria', ['setUser']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maria', ['setUser', 'fetchUserData']), {
     onClose: function onClose() {
       this.setUser(null);
     },
@@ -1840,7 +1885,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return onSave;
     }()
-  })
+  }),
+  watch: {
+    user: function () {
+      var _user = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                this.isLoading = true;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return this.fetchUserData({
+                  user: this.user.id
+                });
+
+              case 4:
+                _context2.next = 8;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                _context2.t0 = _context2["catch"](1);
+
+              case 8:
+                this.isLoading = false;
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 6]]);
+      }));
+
+      function user() {
+        return _user.apply(this, arguments);
+      }
+
+      return user;
+    }()
+  }
 });
 
 /***/ }),
@@ -1915,7 +2002,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maria', ['currentUser'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maria', ['currentUser']), {
+    isActive: function isActive() {
+      return this.currentUser && this.user.id === this.currentUser.id;
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maria', ['setUser']), {
     onClick: function onClick() {
       this.setUser(this.user.id);
@@ -38704,6 +38795,24 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
+              _vm.isLoading
+                ? _c("div", { staticClass: "p-3 text-center" }, [
+                    _vm._v("Loading...")
+                  ])
+                : _c("form", [
+                    _c("h5", [_vm._v("Primary Contact")]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("Emergency Contact")]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("Primary Address")]),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]),
+              _vm._v(" "),
               _c("div", { staticClass: "d-flex justify-content-between" }, [
                 _c(
                   "button",
@@ -38744,7 +38853,132 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row pb-3" }, [
+      _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("label", { attrs: { for: "primary_email" } }, [
+          _vm._v("Email Address")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "email",
+            id: "primary_email",
+            placeholder: "email@example.com"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("label", { attrs: { for: "primary_phone" } }, [
+          _vm._v("Phone Number")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "tel",
+            id: "primary_phone",
+            placeholder: "(000) 000-0000"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row pb-3" }, [
+      _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("label", { attrs: { for: "emergency_email" } }, [
+          _vm._v("Email Address")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "email",
+            id: "emergency_email",
+            placeholder: "email@example.com",
+            disabled: ""
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("label", { attrs: { for: "emergency_phone" } }, [
+          _vm._v("Phone Number")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "tel",
+            id: "emergency_phone",
+            placeholder: "(000) 000-0000",
+            disabled: ""
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row pb-3" }, [
+      _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("label", { attrs: { for: "street_number" } }, [
+          _vm._v("Street Number")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "street_number",
+            placeholder: "Street Number",
+            disabled: ""
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 mb-3" }, [
+        _c("label", { attrs: { for: "street_name" } }, [_vm._v("Street Name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "street_name",
+            placeholder: "Street Name",
+            disabled: ""
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 mb-3" }, [
+        _c("label", { attrs: { for: "postal_code" } }, [_vm._v("Postal Code")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "postal_code",
+            placeholder: "Postal Code",
+            disabled: ""
+          }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38808,7 +39042,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "d-flex justify-content-between" }, [
     _c(
       "a",
       {
@@ -38821,7 +39055,8 @@ var render = function() {
         }
       },
       [_vm._v(_vm._s(_vm.user.name))]
-    )
+    ),
+    _vm.isActive ? _c("span", [_vm._v(" > ")]) : _vm._e()
   ])
 }
 var staticRenderFns = []
