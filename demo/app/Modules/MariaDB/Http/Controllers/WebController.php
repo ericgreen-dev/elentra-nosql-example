@@ -9,13 +9,6 @@ use Illuminate\Http\Response;
 class WebController extends Controller {
 
     /**
-     *
-     */
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
-    /**
      * Get the example index page
      *
      * @return Response
