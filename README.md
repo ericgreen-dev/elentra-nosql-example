@@ -39,17 +39,18 @@ GraphQL mutations are used to represent *write* operations and are defined with 
 Another layer in addition to REST and dependance on a 3rd party library for support.
 
 ### Why should we use it?
-GraphQL provides a powerful, statically typed API for clients to interact with. It is more efficient and predictable than REST when it comes to large and complex queries as the client is required to specify exactly what it needs in return.     
+GraphQL provides a powerful, statically typed API for clients to interact with. It is more efficient and predictable than REST when it comes to handling large and complex queries as the client must specify exactly what it needs in return. The ability to compose GraphQL types would allow for standard system-wide types to be defined for common types that can be reused across the application. Because the schema is defined in code, its has the potential to be configured dynamically via a table in the database and possibly with a user interface. GraphQL is additional layer that compliments REST and that developers could choose to use if it better satisfied their requirements.        
 
 
 ### Where could we use this flexibility?
-- Fetch Filtered Events
+- Events [Elentra ME]
 - Rotation Scheduler UI [Elentra ME]
 - Lotteries Scheduler UIs [Elentra ME]
 - Applications [Elentra Admissions]
 - Custom Reports (Advanced Search) [Elentra CDP]
 
 # TLDR; 
+
 
 
 ### Still to Investigate
