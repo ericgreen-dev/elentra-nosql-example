@@ -1,8 +1,9 @@
 version: '3.5'
 
-services: 
-  php:
+services:
+  demo:
     image: php:7.2-cli
+    container_name: demo
     build: '.'
     ports:
       - 3000:80

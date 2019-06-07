@@ -46,10 +46,3 @@ WORKDIR /usr/local/src
 
 # Install composer dependencies
 RUN composer install --no-plugins --no-scripts
-
-# Project setup
-RUN php artisan migrate:install && \
-    php artisan migrate && \
-    php artisan db:seed && \
-    php artisan module:seed mongodb && \
-    php artisan module:seed mariadb
